@@ -42,7 +42,7 @@ module Dossier
     # this is the method that creates the individual hash entry
     # hashes should always use raw headers
     def row_hash(row)
-      Hash[raw_headers.zip(row)].with_indifferent_access
+      ::ActiveSupport::HashWithIndifferentAccess.new(Hash[raw_headers.zip(row)])
     end
 
     def each

@@ -25,7 +25,8 @@ module Dossier
     end
     
     def initialize(options = {})
-      @options = options.dup.with_indifferent_access
+      options = options.kind_of?(ActionController::Parameters) ? options.permit! : options
+      @options = ::ActiveSupport::HashWithIndifferentAccess.new(options.dup)
     end
 
     def sql

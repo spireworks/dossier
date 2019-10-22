@@ -1,6 +1,7 @@
 module Dossier
   module Adapter
     class ActiveRecord
+      RETRY_COUNT = 5
 
       attr_accessor :options, :connection
 
@@ -13,10 +14,12 @@ module Dossier
         connection.quote(value)
       end
 
-      def execute(query, report_name = nil)
+      def execute(query, report_name = nil, counter = 0)
         # Ensure that SQL logs show name of report generating query
         Result.new(connection.exec_query(*["\n#{query}", report_name].compact))
       rescue => e
+        connection.reconnect!
+        execute(query, report_name, counter + 1) if counter <= RETRY_COUNT
         raise Dossier::ExecuteError.new "#{e.message}\n\n#{query}"
       end
 
