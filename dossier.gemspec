@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency "haml",            ">= 3.1"
   s.add_dependency "responders",      ">= 1.1"
 
-  s.add_development_dependency "activerecord",   ">= 3.2"
+  s.add_development_dependency "activerecord",   ">= 6.0"
   s.add_development_dependency "sqlite3",        ">= 1.3.6"
   s.add_development_dependency "pry",            ">= 0.10.1"
   s.add_development_dependency "rspec-rails",    ">= 3.3.3"
